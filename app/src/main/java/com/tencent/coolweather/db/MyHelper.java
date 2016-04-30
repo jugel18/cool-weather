@@ -27,8 +27,8 @@ public class MyHelper extends SQLiteOpenHelper {
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_PROVINCE);
-        db.execSQL((CREATE_CITY));
-        db.execSQL((CREATE_COUNTY));
+        db.execSQL(CREATE_CITY);
+        db.execSQL(CREATE_COUNTY);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

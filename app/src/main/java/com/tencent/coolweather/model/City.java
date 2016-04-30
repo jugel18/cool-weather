@@ -18,13 +18,13 @@ public class City {
         return  cityName;
     }
     public void setCityName(String name) {
-        this.cityName = name;
+        cityName = name;
     }
     public String getCityCode() {
         return  cityCode;
     }
     public void setCityCode(String code) {
-        this.cityCode = code;
+        cityCode = code;
     }
     public int getProvinceId() {
         return provinceId;
