@@ -2,8 +2,11 @@ package com.tencent.coolweather.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +58,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sp.getBoolean("county_selected",false)) {
+           Log.e("wc", String.valueOf(sp.getBoolean("county_selected",false)));
+            Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(R.layout.layout);
         db = CoolWeatherDB.getInstance(this);
         title = (TextView) findViewById(R.id.title);
@@ -70,6 +81,12 @@ public class MainActivity extends Activity {
                 }else if(level == LEVEL_CITY) {
                     selectedCity = cityList.get(position);
                     queryCounty();
+                }else  if(level == LEVEL_COUNTY) {
+                   String countyCode = countyList.get(position).getCountyCode();
+                    Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+                    intent.putExtra("countyCode", countyCode);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -212,6 +229,9 @@ public class MainActivity extends Activity {
             queryProvince();
         }
         else if(level == LEVEL_PROVINCE) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            editor.putBoolean("county_selected",true);
+            editor.commit();
             finish();
         }
     }

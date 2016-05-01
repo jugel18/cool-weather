@@ -1,5 +1,7 @@
 package com.tencent.coolweather.util;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,6 +31,8 @@ public class HttpUtil {
                         response.append(line);
                     if(listener != null){
                         listener.onFinish(response.toString());
+                        Log.e("HttpUtil", response.toString());
+
                     }
 
                 }catch (Exception e) {
