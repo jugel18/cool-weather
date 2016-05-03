@@ -20,6 +20,7 @@ import com.tencent.coolweather.R;
 import com.tencent.coolweather.service.AutoUpdateService;
 import com.tencent.coolweather.util.HttpURLConnectionListener;
 import com.tencent.coolweather.util.HttpUtil;
+import com.tencent.coolweather.util.LogUtil;
 import com.tencent.coolweather.util.SolveJSON;
 
 
@@ -153,14 +154,14 @@ public class WeatherActivity extends Activity implements View.OnClickListener {
 
     public void showWeather() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.e("wc", sp.getString("name", "有没有"));
+        LogUtil.e("wc", sp.getString("name", "有没有"));
 
         countyTextView.setText(sp.getString("name", "没有信息"));
         ptimeTextView.setText(sp.getString("ptime", "请连接网络"));
         tem1TextView.setText(sp.getString("temp1", "没有数据"));
         tem2TextView.setText(sp.getString("temp2", "no data"));
         weatherTextView.setText(sp.getString("weather", "try again"));
-        Log.e("WeatherActivity", "到这儿没");
+        LogUtil.e("WeatherActivity", "到这儿没");
     }
 
     public void onBackPressed() {
@@ -169,7 +170,7 @@ public class WeatherActivity extends Activity implements View.OnClickListener {
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("county_selected", false);
         editor.commit();
-        Log.e("wc", String.valueOf(sp.getBoolean("county_selected", false)));
+        LogUtil.e("wc", String.valueOf(sp.getBoolean("county_selected", false)));
         Intent intent = new Intent(WeatherActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
